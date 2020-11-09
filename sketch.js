@@ -1,3 +1,13 @@
+var arr1=[1,2,3,4];
+console.log(arr1[2]);
+var arr2=[1,"dhruv",2,"john"];
+console.log(arr2[3]);
+var arr3=[[1,2],[3,4],[5,6]];
+console.log(arr3[1][1]);
+arr3.push([7,8])
+console.log(arr3);
+arr3.pop()
+console.log(arr3);
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
@@ -7,6 +17,8 @@ var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
+
+var gamestate="Play"
 
 
 function preload() {
@@ -65,20 +77,26 @@ function draw(){
     bird.display();
     platform.display();
     //log6.display();
-    slingshot.display();    
+    slingshot.display();   
+
 }
 
 function mouseDragged(){
-    Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});
+   
+   if(gamestate !== "End")
+   {
+        Matter.Body.setPosition(bird.body, {x: mouseX , y: mouseY});}
 }
 
 
 function mouseReleased(){
     slingshot.fly();
+    gamestate="End";
 }
 
 function keyPressed(){
     if(keyCode === 32){
         slingshot.attach(bird.body);
+        gamestate = "Play";
     }
 }
